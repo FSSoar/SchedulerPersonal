@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -119,7 +119,9 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="yuT-Xa-tTn" id="uhg-Ob-nVT"/>
+                        <outlet property="classNameField" destination="BAL-BD-MDr" id="lo5-0J-wdn"/>
                         <outlet property="nextButton" destination="oEk-aa-SUD" id="fcG-VJ-D5m"/>
+                        <outlet property="progressBar" destination="3PJ-84-G5U" id="K4O-Dw-XxS"/>
                         <outlet property="subjectField" destination="xeY-zy-yHI" id="Orh-aT-6ph"/>
                         <outlet property="subjectLine" destination="w9j-Xj-cy8" id="jxJ-ip-0BP"/>
                         <outlet property="subjectPicker" destination="COS-hz-YBo" id="1Pb-7T-e6b"/>

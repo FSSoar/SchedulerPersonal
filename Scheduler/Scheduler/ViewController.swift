@@ -14,6 +14,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
 
+    @IBOutlet var progressBar: UIProgressView!
     
     @IBOutlet var subjectPicker:UIPickerView!
     
@@ -21,11 +22,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBOutlet var subjectField:UITextField!
     
+    @IBOutlet var classNameField: UITextField!
+    
     @IBOutlet var backButton:UIButton!
     @IBOutlet var nextButton:UIButton!
     var subjects = ["Math", "History", "English", "Foreign Language", "Science", "Other Elective"]
     
-    var periodCounter = 1;
+    var periodCounter = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +36,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.subjectPicker.delegate = self;
         backButton.isEnabled = false
          self.subjectPicker.frame = CGRect(x: 0, y: self.view.frame.height + self.subjectPicker.frame.height + 20, width: self.subjectPicker.frame.width, height: self.subjectPicker.frame.height)
+        progressBar.progress = 0
         
         // Do any additional setup after loading the view, typically from a nib.
         var classes:[Period] = [ Period(className: "gov", period: 1),
@@ -111,27 +115,71 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
 
     }
     
-    
+    var tempDataArray = [[String]]()
     
     
     @IBAction func next() {
+        //if the user is rewriting information that was already previously saved
+        let indexIsOccupied = tempDataArray.indices.contains(periodCounter)
+        
+        if indexIsOccupied
+        {
+            if (classNameField.text != "") && (subjectField.text != "") //if all necessary information has been entered
+            {
+                //overwrite the previously stored data
+                tempDataArray[periodCounter][0] = classNameField.text!
+                tempDataArray[periodCounter][1] = subjectField.text!
+                
+                
+            }
+            //now we must check if the next index has to be populated as well
+            let nextIndexIsOccupied = tempDataArray.indices.contains(periodCounter)
+        
+        }
+        
+        
+        //if this is the first time the user has visited this page of the form:
+        //first we must save the data from the form before giving the impression of advancing to a next page
+        if (classNameField.text != "") && (subjectField.text != "") //if all necessary information has been entered
+        {
+            //save the data
+            var row = [String]()
+            row.append(classNameField.text!)
+            row.append(subjectField.text!)
+            tempDataArray.append(row)
+            //empty the form
+            classNameField.text = nil
+            subjectField.text = nil
+            
+            
+        }
+        
+        
+        
+        
         periodCounter += 1
-        subjectLine.text = "Enter Information For Period \(periodCounter)"
-        if periodCounter == 7 {
+        subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
+        progressBar.progress += 0.143
+        if periodCounter == 6 {
             nextButton.isEnabled = false
         }
         else {
             nextButton.isEnabled = true
         }
         backButton.isEnabled = true
+        
+        
+        
+        
     }
     
     @IBAction func back() {
         
         periodCounter -= 1
-        subjectLine.text = "Enter Information For Period \(periodCounter)"
+        subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
+        progressBar.progress -= 0.143
         
-        if periodCounter == 1 {
+        if periodCounter == 0 {
             backButton.isEnabled = false
         }
      nextButton.isEnabled = true
@@ -155,6 +203,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.resignFirstResponder()
        
         
+    }
+    
+    func createAlert(title: String, message: String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
