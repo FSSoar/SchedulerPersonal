@@ -132,6 +132,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 
                 
             }
+            else
+            {
+                createAlert(title: "Error in Form", message: "Please fill in both the classname and subject before advancing. You can go back to change it later.")
+            }
             //now we must check if the next index has to be populated as well
             let nextIndexIsOccupied = tempDataArray.indices.contains(periodCounter + 1)
             print(nextIndexIsOccupied)
@@ -147,6 +151,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 classNameField.text = nil
                 subjectField.text = nil
             }
+            periodCounter += 1
+            subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
+            progressBar.progress += 0.143
         
         }
         else
@@ -163,14 +170,21 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 //empty the form
                 classNameField.text = nil
                 subjectField.text = nil
+                periodCounter += 1
+                subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
+                progressBar.progress += 0.143
                 
+            }
+            else
+            {
+                createAlert(title: "Error in Form", message: "Please fill in both the classname and subject before advancing. You can go back to change it later.")
                 
             }
         }
         
-        periodCounter += 1
+        /*periodCounter += 1
         subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
-        progressBar.progress += 0.143
+        progressBar.progress += 0.143*/
         if periodCounter == 6 {
             nextButton.isEnabled = false
         }
