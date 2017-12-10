@@ -31,7 +31,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         self.subjectPicker.dataSource = self;
         self.subjectPicker.delegate = self;
-        
+        backButton.isEnabled = false
          self.subjectPicker.frame = CGRect(x: 0, y: self.view.frame.height + self.subjectPicker.frame.height + 20, width: self.subjectPicker.frame.width, height: self.subjectPicker.frame.height)
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBAction func next() {
         periodCounter += 1
-        subjectLine.text = "Enter Infromation For Period \(periodCounter)"
+        subjectLine.text = "Enter Information For Period \(periodCounter)"
         if periodCounter == 7 {
             nextButton.isEnabled = false
         }
@@ -129,7 +129,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBAction func back() {
         
         periodCounter -= 1
-        subjectLine.text = "Enter Infromation For Period \(periodCounter)"
+        subjectLine.text = "Enter Information For Period \(periodCounter)"
         
         if periodCounter == 1 {
             backButton.isEnabled = false
