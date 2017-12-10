@@ -133,29 +133,40 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 
             }
             //now we must check if the next index has to be populated as well
-            let nextIndexIsOccupied = tempDataArray.indices.contains(periodCounter)
+            let nextIndexIsOccupied = tempDataArray.indices.contains(periodCounter + 1)
+            print(nextIndexIsOccupied)
+            if nextIndexIsOccupied
+            {
+                //populate the next page with the appropriate data
+                classNameField.text! = tempDataArray[periodCounter + 1][0]
+                subjectField.text! = tempDataArray[periodCounter + 1][1]
+            }
+            else
+            {
+                //clear the form
+                classNameField.text = nil
+                subjectField.text = nil
+            }
         
         }
-        
-        
-        //if this is the first time the user has visited this page of the form:
-        //first we must save the data from the form before giving the impression of advancing to a next page
-        if (classNameField.text != "") && (subjectField.text != "") //if all necessary information has been entered
+        else
         {
-            //save the data
-            var row = [String]()
-            row.append(classNameField.text!)
-            row.append(subjectField.text!)
-            tempDataArray.append(row)
-            //empty the form
-            classNameField.text = nil
-            subjectField.text = nil
-            
-            
+            //if this is the first time the user has visited this page of the form:
+            //first we must save the data from the form before giving the impression of advancing to a next page
+            if (classNameField.text != "") && (subjectField.text != "") //if all necessary information has been entered
+            {
+                //save the data
+                var row = [String]()
+                row.append(classNameField.text!)
+                row.append(subjectField.text!)
+                tempDataArray.append(row)
+                //empty the form
+                classNameField.text = nil
+                subjectField.text = nil
+                
+                
+            }
         }
-        
-        
-        
         
         periodCounter += 1
         subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
@@ -167,10 +178,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             nextButton.isEnabled = true
         }
         backButton.isEnabled = true
-        
-        
-        
-        
+        print(tempDataArray)
     }
     
     @IBAction func back() {
@@ -178,6 +186,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         periodCounter -= 1
         subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
         progressBar.progress -= 0.143
+        
+        classNameField.text! = tempDataArray[periodCounter][0]
+        subjectField.text! = tempDataArray[periodCounter][1]
         
         if periodCounter == 0 {
             backButton.isEnabled = false
@@ -213,6 +224,19 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.present(alert, animated: true, completion: nil)
     }
     
+    func createPeriodObjects(tempDataArray:[[String]]) -> [Period]
+    {
+        var classes = [Period]()
+        
+        for i in 0 ..< tempDataArray.count
+        {
+            let tempPeriod = Period(className: tempDataArray[i][0], period: i + 1)
+            classes.append(tempPeriod)
+        }
+        
+        return classes
+        
+    }
 }
 
 
