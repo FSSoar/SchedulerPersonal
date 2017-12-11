@@ -173,6 +173,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 periodCounter += 1
                 subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
                 progressBar.progress += 0.143
+                if periodCounter == 7
+                {
+                    performSegue(withIdentifier: "toScheduleView", sender: self)
+                }
                 
             }
             else
@@ -186,7 +190,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
         progressBar.progress += 0.143*/
         if periodCounter == 6 {
-            nextButton.isEnabled = false
+            //nextButton.isEnabled = false
+            nextButton.setTitle("Submit", for: .normal)
         }
         else {
             nextButton.isEnabled = true
@@ -196,7 +201,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     @IBAction func back() {
-        
+        if periodCounter == 6 {
+            //nextButton.isEnabled = false
+            nextButton.setTitle("Next", for: .normal)
+        }
         periodCounter -= 1
         subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
         progressBar.progress -= 0.143
