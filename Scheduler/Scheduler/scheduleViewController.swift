@@ -13,6 +13,7 @@ class scheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let classes = createPeriodObjects()
+        print("from schedule vc")
         print(classes)
         // Do any additional setup after loading the view.
     }
