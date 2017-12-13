@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet var backButton:UIButton!
     @IBOutlet var nextButton:UIButton!
     var subjects = ["Math", "History", "English", "Foreign Language", "Science", "Other Elective"]
-    
+    var defaults = UserDefaults.standard
     var periodCounter = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,7 +175,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 progressBar.progress += 0.143
                 if periodCounter == 7
                 {
-                    performSegue(withIdentifier: "toScheduleView", sender: self)
+                    if saveData()
+                    {
+                        performSegue(withIdentifier: "toScheduleView", sender: self)
+                    }
+                    
                 }
                 
             }
@@ -252,12 +256,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         for i in 0 ..< tempDataArray.count
         {
+            
             let tempPeriod = Period(className: tempDataArray[i][0], period: i + 1)
             classes.append(tempPeriod)
         }
         
         return classes
         
+    }
+    func saveData() -> Bool
+    {
+        
+        for i in 0 ..< tempDataArray.count
+        {
+            let dataString = tempDataArray[i][0] + "&&" + tempDataArray[i][1]
+            defaults.set(dataString, forKey: "period" + String(i))
+        }
+        
+        return true
     }
 }
 

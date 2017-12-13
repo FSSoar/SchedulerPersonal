@@ -9,16 +9,32 @@
 import UIKit
 
 class scheduleViewController: UIViewController {
-
+    var defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let classes = createPeriodObjects()
+        print(classes)
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func createPeriodObjects() -> [Period]
+    {
+        var classes = [Period]()
+        
+        for i in 0 ..< 7
+        {
+            let dataString = defaults.value(forKey: "period" + String(i)) as! String
+            let dataArr = dataString.components(separatedBy: "&&")
+            let tempPeriod = Period(className: dataArr[0], period: i + 1)
+            classes.append(tempPeriod)
+        }
+        
+        return classes
+        
     }
     
 
