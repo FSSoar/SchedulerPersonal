@@ -54,8 +54,8 @@ class CardView: UIView {
         
         
         periodName = UILabel()
-        periodName.frame = CGRect(x: 0, y: 10, width: self.frame.width - 20, height: 40)
-        periodName.font = UIFont(name: "\(self.periodName.font.fontName)-bold", size: 28)
+        periodName.frame = CGRect(x: 60, y: 10, width: self.frame.width - 80, height: 40)
+        periodName.font = UIFont(name: "\(self.periodName.font.fontName)-bold", size: 22)
         periodName.textAlignment = .center
         periodName.text = "Calculus AB"
         self.addSubview(periodName)
@@ -85,6 +85,7 @@ class CardView: UIView {
     
     func setPeriodNumber(perNum:Int, color:UIColor) {
         self.perLabel.setTitle("\(perNum)", for: .normal)
+        self.perLabel.backgroundColor = color.withAlphaComponent(0.7)
     }
     
     
