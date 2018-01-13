@@ -8,17 +8,58 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var authorizedForNotifications = false;
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (authorized, error) in
+            if !authorized
+            {
+                print("Not authorized")
+            }
+            else
+            {
+                self.authorizedForNotifications = true
+            }
+        }
+        
+        
         return true
     }
+    
+    func scheduleNotification(message: String, date: String, title: String)
+    {
+        if authorizedForNotifications
+        {
+            let content = UNMutableNotificationContent()
+            content.body = message
+            content.title = date
+            
+            var date = DateComponents()
+            //date.weekday = 2
+            date.hour = 20
+            date.minute = 0
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+            
+            
+            let request = UNNotificationRequest(identifier: "gymNotification", content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { (error) in
+                print("error adding notification request")
+            }
+        }
+        
+    }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
