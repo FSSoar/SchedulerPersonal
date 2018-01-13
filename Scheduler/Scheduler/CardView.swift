@@ -18,6 +18,10 @@ class CardView: UIView {
     }
     */
     
+    var perLabel:UIButton!
+    var periodName:UILabel!
+    var timeLabel:UILabel!
+    
     override func awakeFromNib() {
         self.backgroundColor = UIColor.black
     }
@@ -39,11 +43,53 @@ class CardView: UIView {
         self.layer.shadowRadius = 3.0
         
         
+        perLabel = UIButton()
+        perLabel.frame = CGRect(x: 10, y: 10, width: 45, height: 45)
+        perLabel.setTitle("1", for: .normal)
+        perLabel.backgroundColor = UIColor.red
+        perLabel.layer.cornerRadius = 22.5
+        perLabel.titleLabel!.font = perLabel.titleLabel!.font.withSize(28)// = UIFont(name: "SF-UI-Display-bold", size: 40)
+        //        perLabel.center.y = 50
+        self.addSubview(perLabel)
+        
+        
+        periodName = UILabel()
+        periodName.frame = CGRect(x: 0, y: 10, width: self.frame.width - 20, height: 40)
+        periodName.font = UIFont(name: "\(self.periodName.font.fontName)-bold", size: 28)
+        periodName.textAlignment = .center
+        periodName.text = "Calculus AB"
+        self.addSubview(periodName)
+        
+        
+        
+        timeLabel = UILabel()
+        timeLabel.frame = CGRect(x: 10, y: 70, width: self.frame.width - 20, height: 40)
+        timeLabel.textAlignment = .center
+        timeLabel.font = UIFont(name: self.timeLabel.font.fontName, size: 26)
+        timeLabel.text = "7:25 - 8:30"
+        self.addSubview(timeLabel)
+        
+        
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setPeriodNumber(perNum:Int) {
+        self.perLabel.setTitle("\(perNum)", for: .normal)
+    }
+    
+    
+    func setPeriodNumber(perNum:Int, color:UIColor) {
+        self.perLabel.setTitle("\(perNum)", for: .normal)
+    }
+    
+    
+    func setPeriodName(name:String) {
+        self.periodName.text = name
     }
     
 }
