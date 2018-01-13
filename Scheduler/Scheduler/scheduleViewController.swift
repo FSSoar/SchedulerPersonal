@@ -10,6 +10,7 @@ import UIKit
 
 class scheduleViewController: UIViewController {
     var defaults = UserDefaults.standard
+    var cards:[CardView] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         let classes = createPeriodObjects()
@@ -22,16 +23,35 @@ class scheduleViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func createPeriodObjects() -> [Period]
+    func createPeriodObjects() -> [Period] 
     {
         var classes = [Period]()
         
         for i in 0 ..< 7
         {
-            let dataString = defaults.value(forKey: "period" + String(i)) as! String
-            let dataArr = dataString.components(separatedBy: "&&")
-            let tempPeriod = Period(className: dataArr[0], period: i + 1)
-            classes.append(tempPeriod)
+            
+            if defaults.value(forKey: "period" + String(i)) != nil {
+                let dataString = defaults.value(forKey: "period" + String(i)) as! String
+                let dataArr = dataString.components(separatedBy: "&&")
+                let tempPeriod = Period(className: dataArr[0], period: i + 1)
+                classes.append(tempPeriod)
+                
+                
+                
+                
+            }
+           
+            
+            
+        }
+        
+        for i in 0 ..< 5 {
+            let frame = CGRect(x: 10, y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+            let card = CardView(frame: frame)
+            
+            self.view.addSubview(card)
+            
+            
         }
         
         return classes
