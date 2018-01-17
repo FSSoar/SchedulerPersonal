@@ -52,7 +52,7 @@ class scheduleViewController: UIViewController {
             
         }
         
-//        updateDisplayDate(day: 2)
+        updateDisplayDate(day: 0)
         
 //        self.nextDayButton.layer.backgroundColor = UIColor.appleBlue().withAlphaComponent(0.7).cgColor
 //        self.nextDayButton.layer.borderColor = UIColor.gray.cgColor
@@ -73,6 +73,8 @@ class scheduleViewController: UIViewController {
         
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -232,6 +234,22 @@ class scheduleViewController: UIViewController {
             
         }
     
+    }
+    var day = 0;
+    @IBAction func next() {
+         day = (day + 1)  % 7
+        updateDisplayDate(day:  day )
+    }
+    
+    @IBAction func back() {
+        if day == 0 {
+            day = 6;
+        }
+        else {
+            day = day - 1
+        }
+        updateDisplayDate(day:  day )
+        
     }
 
 }
