@@ -14,6 +14,10 @@ class scheduleViewController: UIViewController {
     var specialDates:[SpecialDate] = []
     
     
+    var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
+    
+    
+    
     @IBOutlet var nextDayButton:UIButton!
     @IBOutlet var topView:UIView!
     override func viewDidLoad() {
@@ -21,6 +25,7 @@ class scheduleViewController: UIViewController {
         let classes = createPeriodObjects()
         print("from schedule vc")
         print(classes)
+        
         // Do any additional setup after loading the view.
         self.topView.layer.backgroundColor = UIColor.white.cgColor
         self.topView.layer.borderColor = UIColor.gray.cgColor
@@ -33,7 +38,21 @@ class scheduleViewController: UIViewController {
         self.topView.layer.shadowOpacity = 0.70
         self.topView.layer.shadowRadius = 3.0
         
+        var periods:[String] = ["-", "-", "-", "-", "-"]
+        var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange()]
+        for i in 0 ..< 5 {
+            let frame = CGRect(x: 10, y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+            let card = CardView(frame: frame)
+            card.setPeriodName(name: periods[i])
+            //            card.setPeriodNumber(perNum: i + 1)
+            card.setPeriodNumber(perNum: 0, color: colors[i])
+            cards.append(card)
+            self.view.addSubview(card)
+            
+            
+        }
         
+//        updateDisplayDate(day: 2)
         
 //        self.nextDayButton.layer.backgroundColor = UIColor.appleBlue().withAlphaComponent(0.7).cgColor
 //        self.nextDayButton.layer.borderColor = UIColor.gray.cgColor
@@ -51,6 +70,7 @@ class scheduleViewController: UIViewController {
         getSpecialDates()
         print(specialDates)
         print(checkSpecialDate())
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,19 +98,9 @@ class scheduleViewController: UIViewController {
             
             
         }
-        var periods:[String] = ["AP Calculus AB", "AP Physics C", "AP Government", "Independent Study: AI", "AP Psychology"]
-        var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange()]
-        for i in 0 ..< 5 {
-            let frame = CGRect(x: 10, y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
-            let card = CardView(frame: frame)
-            card.setPeriodName(name: periods[i])
-//            card.setPeriodNumber(perNum: i + 1)
-            card.setPeriodNumber(perNum: i + 1, color: colors[i])
-            
-            self.view.addSubview(card)
-            
-            
-        }
+      
+        
+        
         
         return classes
         
@@ -167,5 +177,61 @@ class scheduleViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    func createMatrix(classes:[Period]) -> [[Period]] {
+        var matrix:[[Period]] = [[],[],[],[],[],[],[]]
+        
+        for i in 0 ..< matrix.count {
+            for j in 0 ..< 5 {
+                for k in 0 ..< classes.count {
+                    if classes[k].period - 1 == j {
+                        matrix[i].append(classes[k])
+                    }
+                }
+            }
+            
+            
+            for k in 0 ..< classes.count {
+                classes[k].period = (classes[k].period + 2) % 7
+            }
+            print("")
+            
+            
+        }
+        
+        for i in 0 ..< matrix.count {
+            for j in 0 ..< matrix[i].count {
+                print(matrix[i][j].className + " ")
+                
+            }
+            print()
+        }
+        
+        
+        return matrix
+    }
+    
+    
+    
+    func updateDisplayDate(day:Int) {
+        let matrix:[[Period]] = createMatrix(classes: createPeriodObjects())
+        
+        for i in 0 ..< (matrix[day]).count {
+            print("\(matrix[day][i].className)")
+            var perNum:Int = 7;
+            if matrix[day][i].period == 0 {
+                perNum = 7;
+            }
+            else {
+               perNum =  matrix[day][i].period
+            }
+            cards[i].setPeriodNumber(perNum: perNum, color: colors[matrix[day][i].period]) //.perLabel.setTitle("\(matrix[day][i].period)", for: .normal)
+            cards[i].periodName.text = matrix[day][i].className
+           
+            
+        }
+    
+    }
 
 }
