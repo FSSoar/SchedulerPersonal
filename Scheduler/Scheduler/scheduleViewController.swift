@@ -12,6 +12,7 @@ class scheduleViewController: UIViewController {
     var defaults = UserDefaults.standard
     var cards:[CardView] = []
     var specialDates:[SpecialDate] = []
+    @IBOutlet var dayLabel:UILabel!
     
     
     var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
@@ -234,11 +235,16 @@ class scheduleViewController: UIViewController {
             
         }
     
+        
+        updateLabel(day:day)
     }
     var day = 0;
+    var daysProgressed = 0;
     @IBAction func next() {
          day = (day + 1)  % 7
+        daysProgressed += 1
         updateDisplayDate(day:  day )
+        
     }
     
     @IBAction func back() {
@@ -248,8 +254,52 @@ class scheduleViewController: UIViewController {
         else {
             day = day - 1
         }
+        daysProgressed -= 1
         updateDisplayDate(day:  day )
         
     }
+    
+    
+    
+    func updateLabel(day: Int) {
+        if day == 0 {
+            dayLabel.text = "A Day"
+        }
+        else if day == 1 {
+             dayLabel.text = "B Day"
+        }
+        else if day == 2 {
+             dayLabel.text = "C Day"
+        }
+        else if day == 3 {
+             dayLabel.text = "D Day"
+        }
+        else if day == 4 {
+            dayLabel.text = "E Day"
+        }
+        else if day == 5 {
+             dayLabel.text = "F Day"
+        }
+        else if day == 6 {
+             dayLabel.text = "G Day"
+        }
+        
 
+        
+        let today = NSDate() //Use datePicker.date
+        let nextDay = NSCalendar.current.date(byAdding: Calendar.Component.day, //Here you can add year, month, hour, etc.
+            value: daysProgressed,  //Here you can add number of units
+            to: today as Date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"//"MM/dd/yy"
+        let dateDisplay = dateFormatter.string(from: nextDay!)
+        print(dateDisplay)
+        
+        dayLabel.text = "\(dayLabel.text!) - \(dateDisplay)"
+        
+        
+    }
+
+    
+    
 }
