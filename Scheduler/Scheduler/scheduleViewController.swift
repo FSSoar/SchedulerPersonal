@@ -13,6 +13,8 @@ class scheduleViewController: UIViewController {
     var cards:[CardView] = []
     var specialDates:[SpecialDate] = []
     
+    
+    @IBOutlet var nextDayButton:UIButton!
     @IBOutlet var topView:UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,21 @@ class scheduleViewController: UIViewController {
         self.topView.layer.shadowOpacity = 0.70
         self.topView.layer.shadowRadius = 3.0
         
+        
+        
+//        self.nextDayButton.layer.backgroundColor = UIColor.appleBlue().withAlphaComponent(0.7).cgColor
+//        self.nextDayButton.layer.borderColor = UIColor.gray.cgColor
+//        //        cell.layer.borderWidth = 0.0
+//        //        cell.layer.cornerRadius = 5
+//        self.nextDayButton.layer.masksToBounds = false
+//        //        cell.layer.shadowRadius = 1.0
+//        self.nextDayButton.layer.shadowColor = UIColor.lightGray.cgColor
+//        self.nextDayButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+//        self.nextDayButton.layer.shadowOpacity = 0.70
+//        self.nextDayButton.layer.shadowRadius = 3.0
+//        self.nextDayButton.layer.cornerRadius = 25.5
+//        self.view.bringSubview(toFront: nextDayButton)
+//        
         getSpecialDates()
         print(specialDates)
         print(checkSpecialDate())

@@ -23,14 +23,65 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet var subjectField:UITextField!
     
     @IBOutlet var classNameField: UITextField!
+    @IBOutlet var topView:UIView!
     
+    
+    
+    @IBOutlet var roundedView:UIView!
     @IBOutlet var backButton:UIButton!
     @IBOutlet var nextButton:UIButton!
     var subjects = ["Math", "History", "English", "Foreign Language", "Science", "Other Elective"]
     var defaults = UserDefaults.standard
     var periodCounter = 0;
+    
+    
+    @IBOutlet var buttonPeriod:UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.topView.layer.backgroundColor = UIColor.white.cgColor
+        self.topView.layer.borderColor = UIColor.gray.cgColor
+        //        cell.layer.borderWidth = 0.0
+        //        cell.layer.cornerRadius = 5
+        self.topView.layer.masksToBounds = false
+        //        cell.layer.shadowRadius = 1.0
+        self.topView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.topView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+        self.topView.layer.shadowOpacity = 0.70
+        self.topView.layer.shadowRadius = 3.0
+        
+        
+        
+        self.roundedView.layer.backgroundColor = UIColor.white.cgColor
+        self.roundedView.layer.borderColor = UIColor.gray.cgColor
+        //        cell.layer.borderWidth = 0.0
+        //        cell.layer.cornerRadius = 5
+        self.roundedView.layer.masksToBounds = false
+        //        cell.layer.shadowRadius = 1.0
+        self.roundedView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.roundedView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+        self.roundedView.layer.shadowOpacity = 0.70
+        self.roundedView.layer.shadowRadius = 3.0
+        self.roundedView.layer.cornerRadius = 10
+        
+        
+        
+        
+        
+        self.subjectPicker.layer.backgroundColor = UIColor.white.cgColor
+        self.subjectPicker.layer.borderColor = UIColor.gray.cgColor
+        //        cell.layer.borderWidth = 0.0
+        //        cell.layer.cornerRadius = 5
+        self.subjectPicker.layer.masksToBounds = false
+        //        cell.layer.shadowRadius = 1.0
+        self.subjectPicker.layer.shadowColor = UIColor.lightGray.cgColor
+        self.subjectPicker.layer.shadowOffset = CGSize(width: 0.0, height: -2.0)//CGSize(1.0, 1.0)
+        self.subjectPicker.layer.shadowOpacity = 0.70
+        self.subjectPicker.layer.shadowRadius = 3.0
+//        self.subjectPicker.layer.cornerRadius = 10
+        
+        
+        
         
         self.subjectPicker.dataSource = self;
         self.subjectPicker.delegate = self;
@@ -52,7 +103,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
        let matrix =  createMatrix(classes: classes)
         
-        
+        buttonPeriod.setTitle("1", for: .normal)
+        buttonPeriod.backgroundColor = UIColor.appleRed().withAlphaComponent(0.7)
+        buttonPeriod.layer.cornerRadius = 22.5
+        buttonPeriod.titleLabel!.font = buttonPeriod.titleLabel!.font.withSize(28)
      
     }
 
@@ -129,7 +183,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 //overwrite the previously stored data
                 tempDataArray[periodCounter][0] = classNameField.text!
                 tempDataArray[periodCounter][1] = subjectField.text!
-                
+               
+
                 
             }
             else
@@ -188,6 +243,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 createAlert(title: "Error in Form", message: "Please fill in both the classname and subject before advancing. You can go back to change it later.")
                 
             }
+            
+            var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
+            buttonPeriod.backgroundColor = colors[periodCounter].withAlphaComponent(0.7)
+            buttonPeriod.setTitle("\(periodCounter + 1)", for: .normal)
+            
         }
         
         /*periodCounter += 1
