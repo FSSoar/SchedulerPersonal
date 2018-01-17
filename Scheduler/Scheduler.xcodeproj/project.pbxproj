@@ -453,8 +453,9 @@
 		A3F0B03B1F9ED21A0057DA3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6H8UJ784W2;
 				INFOPLIST_FILE = Scheduler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HimanshuMinocha.Scheduler;
@@ -467,8 +468,9 @@
 		A3F0B03C1F9ED21A0057DA3E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6H8UJ784W2;
 				INFOPLIST_FILE = Scheduler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HimanshuMinocha.Scheduler;

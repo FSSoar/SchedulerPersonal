@@ -248,9 +248,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 
             }
             
-            var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
-            buttonPeriod.backgroundColor = colors[periodCounter].withAlphaComponent(0.7)
-            buttonPeriod.setTitle("\(periodCounter + 1)", for: .normal)
+           
             
         }
         
@@ -263,6 +261,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
         else {
             nextButton.isEnabled = true
+           
+            
+        }
+        
+        if periodCounter != 7 {
+            var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
+            buttonPeriod.backgroundColor = colors[periodCounter].withAlphaComponent(0.7)
+            buttonPeriod.setTitle("\(periodCounter + 1)", for: .normal)
         }
         backButton.isEnabled = true
         print(tempDataArray)
@@ -293,7 +299,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBAction func showPicker() {
         
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.subjectPicker.frame = CGRect(x: 0, y: self.view.frame.height - self.subjectPicker.frame.height - 20, width: self.subjectPicker.frame.width, height: self.subjectPicker.frame.height)
         }, completion: nil)
         
@@ -302,7 +308,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBAction func hide() {
         
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.subjectPicker.frame = CGRect(x: 0, y: self.view.frame.height + self.subjectPicker.frame.height + 20, width: self.subjectPicker.frame.width, height: self.subjectPicker.frame.height)
             
         }, completion: nil)
@@ -347,6 +353,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.view.endEditing(true)
+    }
+    
+    
+    @IBAction func hideKeyboard() {
+        self.classNameField.resignFirstResponder()
     }
 }
 

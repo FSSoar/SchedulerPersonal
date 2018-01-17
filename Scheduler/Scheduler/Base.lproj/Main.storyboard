@@ -125,6 +125,7 @@
                                 <rect key="frame" x="55" y="367" width="266" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
+                                    <action selector="hideKeyboard" destination="BYZ-38-t0r" eventType="touchDown" id="DiZ-kr-FqZ"/>
                                     <action selector="showPicker" destination="BYZ-38-t0r" eventType="touchUpInside" id="C1g-vV-DhJ"/>
                                 </connections>
                             </button>
