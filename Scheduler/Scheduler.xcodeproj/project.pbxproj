@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		520069471FDDE5A500F83450 /* scheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520069461FDDE5A500F83450 /* scheduleViewController.swift */; };
 		5200F101200A978300FC0F04 /* SpecialDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200F100200A978300FC0F04 /* SpecialDate.swift */; };
+		5200F103200EEEE400FC0F04 /* specialDates.json in Resources */ = {isa = PBXBuildFile; fileRef = 5200F102200EEE5600FC0F04 /* specialDates.json */; };
 		A30137961F9FED2900644CDD /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30137951F9FED2900644CDD /* Period.swift */; };
 		A336B55F200AA8AC00A04607 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A336B55E200AA8AB00A04607 /* Colors.swift */; };
 		A3B47A57200A8B33006726CE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B47A56200A8B33006726CE /* CardView.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		520069461FDDE5A500F83450 /* scheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduleViewController.swift; sourceTree = "<group>"; };
 		5200F100200A978300FC0F04 /* SpecialDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialDate.swift; sourceTree = "<group>"; };
+		5200F102200EEE5600FC0F04 /* specialDates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = specialDates.json; sourceTree = "<group>"; };
 		A30137951F9FED2900644CDD /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		A336B55E200AA8AB00A04607 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A3B47A56200A8B33006726CE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				A3F0B0161F9ED21A0057DA3E /* Main.storyboard */,
 				520069461FDDE5A500F83450 /* scheduleViewController.swift */,
 				A336B55E200AA8AB00A04607 /* Colors.swift */,
+				5200F102200EEE5600FC0F04 /* specialDates.json */,
 				A3F0B01C1F9ED21A0057DA3E /* Assets.xcassets */,
 				A3F0B01E1F9ED21A0057DA3E /* LaunchScreen.storyboard */,
 				A3F0B0211F9ED21A0057DA3E /* Info.plist */,
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5200F103200EEEE400FC0F04 /* specialDates.json in Resources */,
 				A3F0B0201F9ED21A0057DA3E /* LaunchScreen.storyboard in Resources */,
 				A3F0B01D1F9ED21A0057DA3E /* Assets.xcassets in Resources */,
 				A3F0B0181F9ED21A0057DA3E /* Main.storyboard in Resources */,

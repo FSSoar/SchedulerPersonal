@@ -11,6 +11,7 @@ import UIKit
 class scheduleViewController: UIViewController {
     var defaults = UserDefaults.standard
     var cards:[CardView] = []
+    var specialDates:[SpecialDate] = []
     
     @IBOutlet var topView:UIView!
     override func viewDidLoad() {
@@ -30,7 +31,8 @@ class scheduleViewController: UIViewController {
         self.topView.layer.shadowOpacity = 0.70
         self.topView.layer.shadowRadius = 3.0
         
-        
+        getSpecialDates()
+        print(specialDates)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,6 +75,41 @@ class scheduleViewController: UIViewController {
         }
         
         return classes
+        
+    }
+    func getSpecialDates()
+    {
+        
+        if let path = Bundle.main.path(forResource: "specialDates", ofType: "json") {
+            do {
+                //print("a")
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let jsonDates = jsonResult["dates"] as? [Dictionary<String, String>]{
+                    // do stuff
+                    //print(jsonDates)
+                    for temp:Dictionary<String, String> in jsonDates
+                    {
+                        //print(temp)
+                        
+                        var dateComponents = DateComponents()
+                        dateComponents.year = 2018
+                        dateComponents.month = Int(temp["month"]!)
+                        dateComponents.day = Int(temp["day"]!)
+                        let userCalendar = Calendar.current
+                        let dateTemp = userCalendar.date(from: dateComponents)
+                        
+                        specialDates.append(SpecialDate(date: dateTemp!, reason: temp["reason"]!, type: temp["type"]!))
+ 
+                        
+                    }
+                }
+            } catch {
+                // handle error
+                print("error retrieving dates array from JSON file")
+            }
+        }
+        
         
     }
     
