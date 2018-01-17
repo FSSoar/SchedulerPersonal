@@ -33,6 +33,7 @@ class scheduleViewController: UIViewController {
         
         getSpecialDates()
         print(specialDates)
+        print(checkSpecialDate())
     }
 
     override func didReceiveMemoryWarning() {
@@ -110,6 +111,32 @@ class scheduleViewController: UIViewController {
             }
         }
         
+        
+    }
+    func checkSpecialDate() -> Bool
+    {
+        var date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = 2018
+        dateComponents.month = month
+        dateComponents.day = day
+        let userCalendar = Calendar.current
+        date = userCalendar.date(from: dateComponents)!
+        var isSpecial = false
+        for temp:SpecialDate in specialDates
+        {
+            if temp.date == date
+            {
+                isSpecial = true
+                break
+            }
+            
+        }
+        return isSpecial
         
     }
     
