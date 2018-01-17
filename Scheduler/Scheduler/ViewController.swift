@@ -209,7 +209,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             periodCounter += 1
             subjectLine.text = "Enter Information For Period \(periodCounter + 1)"
             progressBar.progress += 0.143
-        
+            
+            var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
+            buttonPeriod.backgroundColor = colors[periodCounter].withAlphaComponent(0.7)
+            buttonPeriod.setTitle("\(periodCounter + 1)", for: .normal)
+            
         }
         else
         {
@@ -280,6 +284,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             backButton.isEnabled = false
         }
      nextButton.isEnabled = true
+        var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange(), UIColor.applePurple(), UIColor.appleYellow()]
+        buttonPeriod.backgroundColor = colors[periodCounter].withAlphaComponent(0.7)
+        buttonPeriod.setTitle("\(periodCounter + 1)", for: .normal)
+        
+        
     }
     
     @IBAction func showPicker() {
