@@ -72,6 +72,7 @@ class scheduleViewController: UIViewController {
         print(specialDates)
         print(checkSpecialDate())
         
+
     }
 
     
@@ -298,6 +299,37 @@ class scheduleViewController: UIViewController {
         dayLabel.text = "\(dayLabel.text!) - \(dateDisplay)"
         
         
+    }
+    
+    
+    func validateDate(anchorDate:AnchorDate) -> Int {
+        
+        
+        
+       
+        var validationProgress:Int = 0
+        var itterator:Int = 0
+        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != Date()) {
+            if Calendar.current.isDateInWeekend(Date()) {
+                print("is weekend")
+                validationProgress += 1
+            }
+            else if (false) { //This is where there is a check for a special date
+                print("is special date ")
+                 validationProgress += 1
+            }
+            else {
+                itterator += 1
+                validationProgress += 1
+            }
+        }
+        
+        
+        
+        print("\(itterator % 7)")
+        
+        
+        return itterator - (itterator / 7)
     }
 
     
