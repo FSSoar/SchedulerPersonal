@@ -75,7 +75,7 @@ class scheduleViewController: UIViewController {
 //        
         getSpecialDates()
         print(specialDates)
-        print(checkSpecialDate())
+        //print(checkSpecialDate())
         
 
     }
@@ -149,9 +149,9 @@ class scheduleViewController: UIViewController {
         
         
     }
-    func checkSpecialDate() -> Bool
+    func checkSpecialDate(date:Date) -> Bool
     {
-        var date = Date()
+        /*var date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
         let month = calendar.component(.month, from: date)
@@ -162,7 +162,10 @@ class scheduleViewController: UIViewController {
         dateComponents.day = day
         let userCalendar = Calendar.current
         date = userCalendar.date(from: dateComponents)!
+        
+         */
         var isSpecial = false
+        
         for temp:SpecialDate in specialDates
         {
             if temp.date == date
@@ -319,7 +322,7 @@ class scheduleViewController: UIViewController {
                 print("is weekend")
                 validationProgress += 1
             }
-            else if (false) { //This is where there is a check for a special date
+            else if (checkSpecialDate(date: NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)!)) { //This is where there is a check for a special date
                 print("is special date ")
                  validationProgress += 1
             }
