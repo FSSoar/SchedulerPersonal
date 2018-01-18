@@ -356,8 +356,23 @@ class scheduleViewController: UIViewController {
        
         var validationProgress:Int = 0
         var itterator:Int = 0
-        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != Date()) {
-            if Calendar.current.isDateInWeekend(Date()) {
+        
+        var currDate = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: currDate)
+        let month = calendar.component(.month, from: currDate)
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = 2018
+        dateComponents.month = month
+        dateComponents.day = day
+        let userCalendar = Calendar.current
+        currDate = userCalendar.date(from: dateComponents)!
+        
+        
+        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != currDate) {
+            let tempDate = NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)
+            if Calendar.current.isDateInWeekend(tempDate!) {
                 print("is weekend")
                 validationProgress += 1
             }
