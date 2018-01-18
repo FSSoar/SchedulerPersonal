@@ -12,6 +12,7 @@ class scheduleViewController: UIViewController {
     var defaults = UserDefaults.standard
     var cards:[CardView] = []
     var specialDates:[SpecialDate] = []
+    var anchorDates:[AnchorDate] = []
     @IBOutlet var dayLabel:UILabel!
     
     
@@ -138,6 +139,41 @@ class scheduleViewController: UIViewController {
                         
                         specialDates.append(SpecialDate(date: dateTemp!, reason: temp["reason"]!, type: temp["type"]!))
  
+                        
+                    }
+                }
+            } catch {
+                // handle error
+                print("error retrieving dates array from JSON file")
+            }
+        }
+        
+        
+    }
+    func getAnchorDates()
+    {
+        
+        if let path = Bundle.main.path(forResource: "anchors", ofType: "json") {
+            do {
+                //print("a")
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let jsonDates = jsonResult["anchors"] as? [Dictionary<String, String>]{
+                    // do stuff
+                    //print(jsonDates)
+                    for temp:Dictionary<String, String> in jsonDates
+                    {
+                        //print(temp)
+                        
+                        var dateComponents = DateComponents()
+                        dateComponents.year = 2018
+                        dateComponents.month = Int(temp["month"]!)
+                        dateComponents.day = Int(temp["day"]!)
+                        let userCalendar = Calendar.current
+                        let dateTemp = userCalendar.date(from: dateComponents)
+                        
+                        anchorDates.append(AnchorDate(date: dateTemp!, day: Int(temp["schedule"]!)!)
+                        
                         
                     }
                 }
