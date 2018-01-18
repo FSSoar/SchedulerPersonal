@@ -335,7 +335,7 @@ class scheduleViewController: UIViewController {
         
         
         print("\(itterator % 7)")
-        
+        print("The DAY IS \(anchorDate.day + itterator % 7)")
         
         return itterator - (itterator / 7)
     }
