@@ -42,13 +42,18 @@ class scheduleViewController: UIViewController {
         var periods:[String] = ["-", "-", "-", "-", "-"]
         var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange()]
         for i in 0 ..< 5 {
-            let frame = CGRect(x: 10, y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+            let frame = CGRect(x: Int(self.view.frame.width), y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
             let card = CardView(frame: frame)
             card.setPeriodName(name: periods[i])
             //            card.setPeriodNumber(perNum: i + 1)
             card.setPeriodNumber(perNum: 0, color: colors[i])
             cards.append(card)
             self.view.addSubview(card)
+            
+            
+            UIView.animate(withDuration: 0.2 * Double(i) + 0.3 , animations: {
+                card.frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+            }, completion: nil)
             
             
         }
