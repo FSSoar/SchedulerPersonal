@@ -75,7 +75,10 @@ class scheduleViewController: UIViewController {
 //        self.view.bringSubview(toFront: nextDayButton)
 //        
         getSpecialDates()
+        getAnchorDates()
         print(specialDates)
+        print(anchorDates)
+        validateDate(anchorDate: anchorDates[0])
         //print(checkSpecialDate())
         
 
