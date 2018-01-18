@@ -42,12 +42,14 @@ class scheduleViewController: UIViewController {
         
         var periods:[String] = ["-", "-", "-", "-", "-"]
         var colors:[UIColor] = [UIColor.appleRed(), UIColor.appleBlue(), UIColor.applePink(), UIColor.appleGreen(), UIColor.appleOrange()]
+        var times:[String] = ["7:30 - 8:30", "8:35 - 9:35", "9:40 - 10:40", "10:45 - 12:40", "12:45 - 1:50"]
         for i in 0 ..< 5 {
             let frame = CGRect(x: Int(self.view.frame.width), y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
             let card = CardView(frame: frame)
             card.setPeriodName(name: periods[i])
             //            card.setPeriodNumber(perNum: i + 1)
             card.setPeriodNumber(perNum: 0, color: colors[i])
+            card.timeLabel.text = times[i]
             cards.append(card)
             self.view.addSubview(card)
             
