@@ -78,7 +78,7 @@ class scheduleViewController: UIViewController {
         getAnchorDates()
         print(specialDates)
         print(anchorDates)
-        validateDate(anchorDate: anchorDates[0])
+        validateDate(anchorDate: anchorDates[0], currDate: Date())
         //print(checkSpecialDate())
         
 
@@ -289,21 +289,22 @@ class scheduleViewController: UIViewController {
     var day = 0;
     var daysProgressed = 0;
     @IBAction func next() {
-         day = (day + 1)  % 7
+        
         daysProgressed += 1
-        updateDisplayDate(day:  day )
+        let today = Date()
+        let incr = NSCalendar.current.date(byAdding: Calendar.Component.day, value: daysProgressed, to: today as Date)
+        validateDate(anchorDate: anchorDates[0], currDate: incr!)
         
     }
     
     @IBAction func back() {
-        if day == 0 {
-            day = 6;
-        }
-        else {
-            day = day - 1
-        }
+        
         daysProgressed -= 1
-        updateDisplayDate(day:  day )
+        
+        let today = Date()
+        let incr = NSCalendar.current.date(byAdding: Calendar.Component.day, value: daysProgressed, to: today as Date)
+        validateDate(anchorDate: anchorDates[0], currDate: incr!)
+
         
     }
     
@@ -349,7 +350,7 @@ class scheduleViewController: UIViewController {
     }
     
     
-    func validateDate(anchorDate:AnchorDate) -> Int {
+    func validateDate(anchorDate:AnchorDate, currDate:Date) -> Int {
         
         
         
@@ -357,7 +358,7 @@ class scheduleViewController: UIViewController {
         var validationProgress:Int = 0
         var itterator:Int = 0
         
-        var currDate = Date()
+//        var currDate = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: currDate)
         let month = calendar.component(.month, from: currDate)
@@ -367,22 +368,42 @@ class scheduleViewController: UIViewController {
         dateComponents.month = month
         dateComponents.day = day
         let userCalendar = Calendar.current
-        currDate = userCalendar.date(from: dateComponents)!
+        let dateForComp = userCalendar.date(from: dateComponents)!
         
         
-        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != currDate) {
+        
+         if (Calendar.current.isDateInWeekend(dateForComp)) {
+            print("is weekend")
+            validationProgress += 1
+            dayLabel.text = "Its the weekend"
+            
+        }
+         else if checkSpecialDate(date: dateForComp)  {
+            dayLabel.text = "special"
+        }
+         else {
+        
+        
+        
+        
+        
+        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != dateForComp) {
             let tempDate = NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)
             if Calendar.current.isDateInWeekend(tempDate!) {
                 print("is weekend")
                 validationProgress += 1
+//                dayLabel.text = "Its the weekend"
+                
             }
             else if (checkSpecialDate(date: NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)!)) { //This is where there is a check for a special date
-                print("is special date ")
+                print("is special date 1")
                  validationProgress += 1
+//                dayLabel.text = "Special Date"
             }
             else {
                 itterator += 1
                 validationProgress += 1
+                
             }
         }
         
@@ -392,6 +413,8 @@ class scheduleViewController: UIViewController {
         self.day = anchorDate.day + itterator % 7
         print("The DAY IS \(anchorDate.day + itterator % 7)")
         updateDisplayDate(day:  anchorDate.day + itterator % 7)
+            
+        }
         return itterator - (itterator / 7)
     }
 
