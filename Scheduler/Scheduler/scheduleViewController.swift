@@ -20,7 +20,7 @@ class scheduleViewController: UIViewController {
     
     
     
-    @IBOutlet var nextDayButton:UIButton!
+    @IBOutlet var prevDayButton:UIButton!
     @IBOutlet var topView:UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -363,6 +363,9 @@ class scheduleViewController: UIViewController {
         let day = calendar.component(.day, from: currDate)
         let month = calendar.component(.month, from: currDate)
         
+        let day2  = calendar.component(.day, from: anchorDate.date)
+        let month2 = calendar.component(.month, from: anchorDate.date)
+        
         var dateComponents = DateComponents()
         dateComponents.year = 2018
         dateComponents.month = month
@@ -371,19 +374,49 @@ class scheduleViewController: UIViewController {
         let dateForComp = userCalendar.date(from: dateComponents)!
         
         
+        var dateComponents2 = DateComponents()
+        dateComponents2.year = 2018
+        dateComponents2.month = month2
+        dateComponents2.day = day2
+//        let userCalendar = Calendar.current
+        let dateForComp2 = userCalendar.date(from: dateComponents2)!
+        
+        if dateForComp2 == dateForComp {
+            prevDayButton.isEnabled = false
+        }
+        else {
+            prevDayButton.isEnabled = true
+        }
+        
         
          if (Calendar.current.isDateInWeekend(dateForComp)) {
             print("is weekend")
             validationProgress += 1
-            dayLabel.text = "Its the weekend"
+           
+            
+        
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat  = "EEEE"//"EE" to get short style
+            let dayInWeek = dateFormatter.string(from: dateForComp)
+             dayLabel.text = "\(dayInWeek)"
+            
+            
+            for i in 0 ..< cards.count {
+                cards[i].isHidden = true
+            }
             
         }
          else if checkSpecialDate(date: dateForComp)  {
-            dayLabel.text = "special"
+            dayLabel.text = "Holiday"
+            for i in 0 ..< cards.count {
+                cards[i].isHidden = true
+            }
         }
          else {
         
-        
+            for i in 0 ..< cards.count {
+                cards[i].isHidden = false
+            }
         
         
         

@@ -212,6 +212,7 @@
                     </view>
                     <connections>
                         <outlet property="dayLabel" destination="fBJ-kR-Bca" id="BL3-27-hgX"/>
+                        <outlet property="prevDayButton" destination="Rsu-gO-bmK" id="Efn-Mb-P78"/>
                         <outlet property="topView" destination="0yb-jw-q7d" id="pdx-oN-RAs"/>
                     </connections>
                 </viewController>
