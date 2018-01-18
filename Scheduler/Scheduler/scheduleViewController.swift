@@ -172,7 +172,7 @@ class scheduleViewController: UIViewController {
                         let userCalendar = Calendar.current
                         let dateTemp = userCalendar.date(from: dateComponents)
                         
-                        anchorDates.append(AnchorDate(date: dateTemp!, day: Int(temp["schedule"]!)!)
+                        anchorDates.append(AnchorDate(date: dateTemp!, day: Int(temp["schedule"]!)!))
                         
                         
                     }
