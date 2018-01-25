@@ -104,6 +104,7 @@ class scheduleViewController: UIViewController {
         print(specialDates)
         print(anchorDates)
         validateDate(anchorDate: anchorDates[0], currDate: Date())
+        highlightCurrentPeriod()
         //print(checkSpecialDate())
         
         
@@ -374,22 +375,33 @@ class scheduleViewController: UIViewController {
     var day = 0;
     var daysProgressed = 0;
     @IBAction func next() {
-        
+        for i in 0 ..< cards.count {
+            cards[i].changeToWhite()
+        }
         daysProgressed += 1
         let today = Date()
         let incr = NSCalendar.current.date(byAdding: Calendar.Component.day, value: daysProgressed, to: today as Date)
         validateDate(anchorDate: anchorDates[0], currDate: incr!)
+        if (daysProgressed == 0)
+        {
+                highlightCurrentPeriod()
+        }
         
     }
     
     @IBAction func back() {
-        
+        for i in 0 ..< cards.count {
+            cards[i].changeToWhite()
+        }
         daysProgressed -= 1
         
         let today = Date()
         let incr = NSCalendar.current.date(byAdding: Calendar.Component.day, value: daysProgressed, to: today as Date)
         validateDate(anchorDate: anchorDates[0], currDate: incr!)
-        
+        if (daysProgressed == 0)
+        {
+            highlightCurrentPeriod()
+        }
         
     }
     
@@ -534,6 +546,74 @@ class scheduleViewController: UIViewController {
             
         }
         return itterator - (itterator / 7)
+    }
+    func highlightCurrentPeriod()
+    {
+        for i in 0 ..< cards.count {
+            cards[i].changeToWhite()
+        }
+        var currDate = Date()
+        let calendar = Calendar.current
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = calendar.component(.hour, from: currDate)
+        dateComponents.minute = calendar.component(.minute, from: currDate)
+        currDate = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 7
+        dateComponents.minute = 30
+        
+        let p1I = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 8
+        dateComponents.minute = 35
+        
+        let p2I = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 9
+        dateComponents.minute = 40
+        
+        let p3I = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 10
+        dateComponents.minute = 45
+        
+        let p4I = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 12
+        dateComponents.minute = 45
+        
+        let p5I = calendar.date(from: dateComponents)!
+        
+        dateComponents.hour = 1
+        dateComponents.minute = 50
+        
+        let p5E = calendar.date(from: dateComponents)!
+        
+        if(currDate >= p1I) && (currDate <= p2I)
+        {
+            cards[0].changeToGray()
+        }
+        else if (currDate >= p2I) && (currDate <= p3I)
+        {
+            cards[1].changeToGray()
+        }
+        else if (currDate >= p3I) && (currDate <= p4I)
+        {
+            cards[2].changeToGray()
+        }
+        else if (currDate >= p4I) && (currDate <= p5I)
+        {
+            cards[3].changeToGray()
+        }
+        else if (currDate >= p5I) //&& (currDate <= p5E)
+        {
+            cards[4].changeToGray()
+        }
+        
+        
+        
+        
     }
     
     

@@ -107,7 +107,7 @@ class CardView: UIView {
     }
     
     func changeToGray() {
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.appleTealBlue().withAlphaComponent(0.5)
     }
     
     func changeToWhite() {
