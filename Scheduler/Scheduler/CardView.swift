@@ -73,8 +73,12 @@ class CardView: UIView {
         
         
         actionButton = UIButton()
-        actionButton.frame = CGRect(x: self.frame.width - 30, y: 30, width: 20, height: 20)
-        actionButton.backgroundColor = UIColor.green
+        actionButton.frame = CGRect(x: self.frame.width - 34, y: 5, width: 30, height: 30)
+        actionButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
+        actionButton.setTitle("X", for: .normal)
+        actionButton.setTitleColor(UIColor.black, for: .normal)
+        actionButton.layer.cornerRadius = 15
+        
         self.addSubview(actionButton)
         
         
