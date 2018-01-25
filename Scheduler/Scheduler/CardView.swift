@@ -96,4 +96,13 @@ class CardView: UIView {
         self.periodName.text = name
     }
     
+    func changeToGray() {
+        self.backgroundColor = UIColor.lightGray
+    }
+    
+    func changeToWhite() {
+        self.backgroundColor = UIColor.white
+    }
+    
+    
 }

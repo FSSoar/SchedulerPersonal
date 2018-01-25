@@ -110,6 +110,27 @@ class scheduleViewController: UIViewController {
     
     @objc func conductTransition(sender:UIButton) {
         print("\(sender.tag)")
+        
+        
+        
+        
+        UIView.animate(withDuration: 0.5 , animations: {
+            
+            for i in 0 ..< 5 {
+                if i > sender.tag {
+                    self.cards[i].frame = CGRect(x: 10 , y: Int(95 + self.cards[i].frame.origin.y + self.view.frame.height), width: (Int)(self.view.frame.width - 20), height: 125)
+                }
+                if i < sender.tag {
+                    self.cards[i].frame = CGRect(x: 10 , y: Int( (self.cards[0].frame.origin.y - self.cards[sender.tag].frame.origin.y) - self.cards[i].frame.origin.y ), width: (Int)(self.view.frame.width - 20), height: 125)
+                }
+            }
+            self.cards[sender.tag].frame = CGRect(x: 10 , y: 95, width: (Int)(self.view.frame.width - 20), height: Int(self.view.frame.height - 105))
+           
+        }, completion: nil)
+        
+        
+        
+        
     }
     
     
