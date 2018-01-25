@@ -13,6 +13,7 @@ class scheduleViewController: UIViewController {
     var cards:[CardView] = []
     var specialDates:[SpecialDate] = []
     var anchorDates:[AnchorDate] = []
+    var transitionButtons:[UIButton] = []
     @IBOutlet var dayLabel:UILabel!
     
     
@@ -24,6 +25,13 @@ class scheduleViewController: UIViewController {
     @IBOutlet var topView:UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+
+        
+        
+        
         let classes = createPeriodObjects()
         print("from schedule vc")
         print(classes)
@@ -51,11 +59,24 @@ class scheduleViewController: UIViewController {
             card.setPeriodNumber(perNum: 0, color: colors[i])
             card.timeLabel.text = times[i]
             cards.append(card)
+            
+            
+            let button = UIButton()
+            button.tag = i
+            button.frame = frame
+//            button.addTarget(self, action: #selector(conductTransition(sender:button)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(conductTransition), for: .touchUpInside)
+            transitionButtons.append(button)
+            
             self.view.addSubview(card)
+            self.view.addSubview(button)
+            
+            
             
             
             UIView.animate(withDuration: 0.2 * Double(i) + 0.3 , animations: {
                 card.frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+                self.transitionButtons[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
             }, completion: nil)
             
             
@@ -86,6 +107,10 @@ class scheduleViewController: UIViewController {
 
     }
 
+    
+    @objc func conductTransition(sender:UIButton) {
+        print("\(sender.tag)")
+    }
     
     
     override func didReceiveMemoryWarning() {
@@ -126,11 +151,29 @@ class scheduleViewController: UIViewController {
         if let path = Bundle.main.path(forResource: "specialDates", ofType: "json") {
             do {
                 //print("a")
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                
+                
+                if let url = URL(string: "https://sites.google.com/site/falconstepstest/about-us/specialDates.json?attredirects=0&d=1") {
+                    do {
+                        let contents = try String(contentsOf: url)
+                        print(contents)
+                    } catch {
+                        // contents could not be loaded
+                    }
+                } else {
+                    // the URL was bad!
+                }
+                
+                let data = try Data(contentsOf: URL(string: "https://drive.google.com/file/d/1viN-R2EHXgjnbIj2JCrQc1h2HJHmnoTi/view?usp=sharing")! , options: .mappedIfSafe)  //Where it says URL can we actually insert a webURL??
+                print("data \(data)")
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                
+                print(jsonResult)
                 if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let jsonDates = jsonResult["dates"] as? [Dictionary<String, String>]{
                     // do stuff
                     //print(jsonDates)
+                    
+                    print(" result \(jsonResult)")
                     for temp:Dictionary<String, String> in jsonDates
                     {
                         //print(temp)
@@ -143,7 +186,7 @@ class scheduleViewController: UIViewController {
                         let dateTemp = userCalendar.date(from: dateComponents)
                         
                         specialDates.append(SpecialDate(date: dateTemp!, reason: temp["reason"]!, type: temp["type"]!))
- 
+                        print(specialDates.count)
                         
                     }
                 }

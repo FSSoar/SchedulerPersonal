@@ -22,6 +22,8 @@ class CardView: UIView {
     var periodName:UILabel!
     var timeLabel:UILabel!
     
+    var actionButton:UIButton!
+    
     override func awakeFromNib() {
         self.backgroundColor = UIColor.black
     }
@@ -68,6 +70,7 @@ class CardView: UIView {
         timeLabel.font = UIFont(name: self.timeLabel.font.fontName, size: 26)
         timeLabel.text = "7:25 - 8:30"
         self.addSubview(timeLabel)
+        
         
         
         
