@@ -28,7 +28,7 @@ class scheduleViewController: UIViewController {
         
         
         
-
+        
         
         
         
@@ -58,13 +58,15 @@ class scheduleViewController: UIViewController {
             //            card.setPeriodNumber(perNum: i + 1)
             card.setPeriodNumber(perNum: 0, color: colors[i])
             card.timeLabel.text = times[i]
+            card.actionButton.addTarget(self, action: #selector(normalView), for: .touchUpInside)
             cards.append(card)
+            
             
             
             let button = UIButton()
             button.tag = i
             button.frame = frame
-//            button.addTarget(self, action: #selector(conductTransition(sender:button)), for: .touchUpInside)
+            //            button.addTarget(self, action: #selector(conductTransition(sender:button)), for: .touchUpInside)
             button.addTarget(self, action: #selector(conductTransition), for: .touchUpInside)
             transitionButtons.append(button)
             
@@ -84,19 +86,19 @@ class scheduleViewController: UIViewController {
         
         updateDisplayDate(day: 0)
         
-//        self.nextDayButton.layer.backgroundColor = UIColor.appleBlue().withAlphaComponent(0.7).cgColor
-//        self.nextDayButton.layer.borderColor = UIColor.gray.cgColor
-//        //        cell.layer.borderWidth = 0.0
-//        //        cell.layer.cornerRadius = 5
-//        self.nextDayButton.layer.masksToBounds = false
-//        //        cell.layer.shadowRadius = 1.0
-//        self.nextDayButton.layer.shadowColor = UIColor.lightGray.cgColor
-//        self.nextDayButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
-//        self.nextDayButton.layer.shadowOpacity = 0.70
-//        self.nextDayButton.layer.shadowRadius = 3.0
-//        self.nextDayButton.layer.cornerRadius = 25.5
-//        self.view.bringSubview(toFront: nextDayButton)
-//        
+        //        self.nextDayButton.layer.backgroundColor = UIColor.appleBlue().withAlphaComponent(0.7).cgColor
+        //        self.nextDayButton.layer.borderColor = UIColor.gray.cgColor
+        //        //        cell.layer.borderWidth = 0.0
+        //        //        cell.layer.cornerRadius = 5
+        //        self.nextDayButton.layer.masksToBounds = false
+        //        //        cell.layer.shadowRadius = 1.0
+        //        self.nextDayButton.layer.shadowColor = UIColor.lightGray.cgColor
+        //        self.nextDayButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+        //        self.nextDayButton.layer.shadowOpacity = 0.70
+        //        self.nextDayButton.layer.shadowRadius = 3.0
+        //        self.nextDayButton.layer.cornerRadius = 25.5
+        //        self.view.bringSubview(toFront: nextDayButton)
+        //
         getSpecialDates()
         getAnchorDates()
         print(specialDates)
@@ -104,9 +106,9 @@ class scheduleViewController: UIViewController {
         validateDate(anchorDate: anchorDates[0], currDate: Date())
         //print(checkSpecialDate())
         
-
+        
     }
-
+    
     
     @objc func conductTransition(sender:UIButton) {
         print("\(sender.tag)")
@@ -114,9 +116,13 @@ class scheduleViewController: UIViewController {
         
         
         
+        
+        
         UIView.animate(withDuration: 0.5 , animations: {
             
             for i in 0 ..< 5 {
+                
+                self.transitionButtons[i].isHidden = true
                 if i > sender.tag {
                     self.cards[i].frame = CGRect(x: 10 , y: Int(95 + self.cards[i].frame.origin.y + self.view.frame.height), width: (Int)(self.view.frame.width - 20), height: 125)
                 }
@@ -125,7 +131,7 @@ class scheduleViewController: UIViewController {
                 }
             }
             self.cards[sender.tag].frame = CGRect(x: 10 , y: 95, width: (Int)(self.view.frame.width - 20), height: Int(self.view.frame.height - 105))
-           
+            
         }, completion: nil)
         
         
@@ -133,6 +139,19 @@ class scheduleViewController: UIViewController {
         
     }
     
+    
+    
+    @objc func normalView() {
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            for i in 0 ..< 5 {
+                self.transitionButtons[i].isHidden = false
+                self.cards[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+                self.transitionButtons[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+            }
+        }, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,11 +174,11 @@ class scheduleViewController: UIViewController {
                 
                 
             }
-           
+            
             
             
         }
-      
+        
         
         
         
@@ -257,17 +276,17 @@ class scheduleViewController: UIViewController {
     func checkSpecialDate(date:Date) -> Bool
     {
         /*var date = Date()
-        let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        let month = calendar.component(.month, from: date)
-        
-        var dateComponents = DateComponents()
-        dateComponents.year = 2018
-        dateComponents.month = month
-        dateComponents.day = day
-        let userCalendar = Calendar.current
-        date = userCalendar.date(from: dateComponents)!
-        
+         let calendar = Calendar.current
+         let day = calendar.component(.day, from: date)
+         let month = calendar.component(.month, from: date)
+         
+         var dateComponents = DateComponents()
+         dateComponents.year = 2018
+         dateComponents.month = month
+         dateComponents.day = day
+         let userCalendar = Calendar.current
+         date = userCalendar.date(from: dateComponents)!
+         
          */
         var isSpecial = false
         
@@ -284,16 +303,16 @@ class scheduleViewController: UIViewController {
         
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     
     func createMatrix(classes:[Period]) -> [[Period]] {
@@ -341,14 +360,14 @@ class scheduleViewController: UIViewController {
                 perNum = 7;
             }
             else {
-               perNum =  matrix[day][i].period
+                perNum =  matrix[day][i].period
             }
             cards[i].setPeriodNumber(perNum: perNum, color: colors[matrix[day][i].period]) //.perLabel.setTitle("\(matrix[day][i].period)", for: .normal)
             cards[i].periodName.text = matrix[day][i].className
-           
+            
             
         }
-    
+        
         
         updateLabel(day:day)
     }
@@ -370,7 +389,7 @@ class scheduleViewController: UIViewController {
         let today = Date()
         let incr = NSCalendar.current.date(byAdding: Calendar.Component.day, value: daysProgressed, to: today as Date)
         validateDate(anchorDate: anchorDates[0], currDate: incr!)
-
+        
         
     }
     
@@ -381,25 +400,25 @@ class scheduleViewController: UIViewController {
             dayLabel.text = "A Day"
         }
         else if day == 1 {
-             dayLabel.text = "B Day"
+            dayLabel.text = "B Day"
         }
         else if day == 2 {
-             dayLabel.text = "C Day"
+            dayLabel.text = "C Day"
         }
         else if day == 3 {
-             dayLabel.text = "D Day"
+            dayLabel.text = "D Day"
         }
         else if day == 4 {
             dayLabel.text = "E Day"
         }
         else if day == 5 {
-             dayLabel.text = "F Day"
+            dayLabel.text = "F Day"
         }
         else if day == 6 {
-             dayLabel.text = "G Day"
+            dayLabel.text = "G Day"
         }
         
-
+        
         
         let today = NSDate() //Use datePicker.date
         let nextDay = NSCalendar.current.date(byAdding: Calendar.Component.day, //Here you can add year, month, hour, etc.
@@ -420,11 +439,11 @@ class scheduleViewController: UIViewController {
         
         
         
-       
+        
         var validationProgress:Int = 0
         var itterator:Int = 0
         
-//        var currDate = Date()
+        //        var currDate = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: currDate)
         let month = calendar.component(.month, from: currDate)
@@ -444,7 +463,7 @@ class scheduleViewController: UIViewController {
         dateComponents2.year = 2018
         dateComponents2.month = month2
         dateComponents2.day = day2
-//        let userCalendar = Calendar.current
+        //        let userCalendar = Calendar.current
         let dateForComp2 = userCalendar.date(from: dateComponents2)!
         
         if dateForComp2 == dateForComp {
@@ -455,16 +474,16 @@ class scheduleViewController: UIViewController {
         }
         
         
-         if (Calendar.current.isDateInWeekend(dateForComp)) {
+        if (Calendar.current.isDateInWeekend(dateForComp)) {
             print("is weekend")
             validationProgress += 1
-           
             
-        
+            
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat  = "EEEE"//"EE" to get short style
             let dayInWeek = dateFormatter.string(from: dateForComp)
-             dayLabel.text = "\(dayInWeek)"
+            dayLabel.text = "\(dayInWeek)"
             
             
             for i in 0 ..< cards.count {
@@ -472,51 +491,51 @@ class scheduleViewController: UIViewController {
             }
             
         }
-         else if checkSpecialDate(date: dateForComp)  {
+        else if checkSpecialDate(date: dateForComp)  {
             dayLabel.text = "Holiday"
             for i in 0 ..< cards.count {
                 cards[i].isHidden = true
             }
         }
-         else {
-        
+        else {
+            
             for i in 0 ..< cards.count {
                 cards[i].isHidden = false
             }
-        
-        
-        
-        while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != dateForComp) {
-            let tempDate = NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)
-            if Calendar.current.isDateInWeekend(tempDate!) {
-                print("is weekend")
-                validationProgress += 1
-//                dayLabel.text = "Its the weekend"
-                
+            
+            
+            
+            while (NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date) != dateForComp) {
+                let tempDate = NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)
+                if Calendar.current.isDateInWeekend(tempDate!) {
+                    print("is weekend")
+                    validationProgress += 1
+                    //                dayLabel.text = "Its the weekend"
+                    
+                }
+                else if (checkSpecialDate(date: NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)!)) { //This is where there is a check for a special date
+                    print("is special date 1")
+                    validationProgress += 1
+                    //                dayLabel.text = "Special Date"
+                }
+                else {
+                    itterator += 1
+                    validationProgress += 1
+                    
+                }
             }
-            else if (checkSpecialDate(date: NSCalendar.current.date(byAdding: Calendar.Component.day, value: validationProgress, to: anchorDate.date as Date)!)) { //This is where there is a check for a special date
-                print("is special date 1")
-                 validationProgress += 1
-//                dayLabel.text = "Special Date"
-            }
-            else {
-                itterator += 1
-                validationProgress += 1
-                
-            }
-        }
-        
-        
-        
-        print("\(itterator % 7)")
-        self.day = anchorDate.day + itterator % 7
-        print("The DAY IS \(anchorDate.day + itterator % 7)")
-        updateDisplayDate(day:  anchorDate.day + itterator % 7)
+            
+            
+            
+            print("\(itterator % 7)")
+            self.day = anchorDate.day + itterator % 7
+            print("The DAY IS \(anchorDate.day + itterator % 7)")
+            updateDisplayDate(day:  anchorDate.day + itterator % 7)
             
         }
         return itterator - (itterator / 7)
     }
-
+    
     
     
 }

@@ -72,6 +72,12 @@ class CardView: UIView {
         self.addSubview(timeLabel)
         
         
+        actionButton = UIButton()
+        actionButton.frame = CGRect(x: self.frame.width - 30, y: 30, width: 20, height: 20)
+        actionButton.backgroundColor = UIColor.green
+        self.addSubview(actionButton)
+        
+        
         
         
     }
