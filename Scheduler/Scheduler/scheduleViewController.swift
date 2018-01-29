@@ -59,6 +59,7 @@ class scheduleViewController: UIViewController {
             card.setPeriodNumber(perNum: 0, color: colors[i])
             card.timeLabel.text = times[i]
             card.actionButton.addTarget(self, action: #selector(normalView), for: .touchUpInside)
+            card.actionButton.isHidden = true
             cards.append(card)
             
             
@@ -72,6 +73,8 @@ class scheduleViewController: UIViewController {
             
             self.view.addSubview(card)
             self.view.addSubview(button)
+            
+            
             
             
             
@@ -122,7 +125,7 @@ class scheduleViewController: UIViewController {
         UIView.animate(withDuration: 0.5 , animations: {
             
             for i in 0 ..< 5 {
-                
+                self.cards[i].actionButton.isHidden = false
                 self.transitionButtons[i].isHidden = true
                 if i > sender.tag {
                     self.cards[i].frame = CGRect(x: 10 , y: Int(95 + self.cards[i].frame.origin.y + self.view.frame.height), width: (Int)(self.view.frame.width - 20), height: 125)
@@ -147,6 +150,7 @@ class scheduleViewController: UIViewController {
         UIView.animate(withDuration: 0.5, animations: {
             
             for i in 0 ..< 5 {
+                self.cards[i].actionButton.isHidden = true
                 self.transitionButtons[i].isHidden = false
                 self.cards[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
                 self.transitionButtons[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
