@@ -108,9 +108,13 @@ class scheduleViewController: UIViewController {
         print(anchorDates)
         validateDate(anchorDate: anchorDates[0], currDate: Date())
         highlightCurrentPeriod()
+        
         //print(checkSpecialDate())
         
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        //showGetAssignment()
     }
     
     
@@ -618,6 +622,37 @@ class scheduleViewController: UIViewController {
         
         
         
+    }
+    func showGetAssignment() {
+        
+        let alertController = UIAlertController(title: "New Assignment", message: "", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: {
+            alert -> Void in
+            let assignmentField = alertController.textFields![0] as UITextField
+            
+            
+            if assignmentField.text != ""{
+                print(assignmentField.text!)
+                //TODO: Save user data in persistent storage - a tutorial for another time
+            } else {
+                let errorAlert = UIAlertController(title: "Error", message: "Please input an assignment", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+                    alert -> Void in
+                    self.present(alertController, animated: true, completion: nil)
+                }))
+                self.present(errorAlert, animated: true, completion: nil)
+            }
+        }))
+        
+        alertController.addTextField(configurationHandler: { (textField) -> Void in
+            textField.placeholder = "Homework"
+            textField.textAlignment = .center
+        })
+        
+        
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     
