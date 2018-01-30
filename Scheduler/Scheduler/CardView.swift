@@ -84,6 +84,12 @@ class CardView: UIView {
         
         
         
+
+//        self.addSubview(assignmentView)
+        
+        generateAssignmentView()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -114,5 +120,15 @@ class CardView: UIView {
         self.backgroundColor = UIColor.white
     }
     
+    
+    
+    
+    func generateAssignmentView() {
+        let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 160, width: self.frame.width - 10, height: 70))
+        assignmentView.backgroundColor = UIColor.green
+//        assignmentView.frame =
+        self.addSubview(assignmentView)
+     
+    }
     
 }
