@@ -124,8 +124,8 @@ class CardView: UIView {
     
     
     func generateAssignmentView() {
-        let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 160, width: self.frame.width - 10, height: 70))
-        assignmentView.backgroundColor = UIColor.green
+        let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 160, width: self.frame.width - 10, height: 55))
+//        assignmentView.backgroundColor = UIColor.green
 //        assignmentView.frame =
         self.addSubview(assignmentView)
      

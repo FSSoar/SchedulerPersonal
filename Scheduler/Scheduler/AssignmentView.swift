@@ -22,12 +22,13 @@ class AssignmentView: UIView {
     
     var checkButton:UIButton!
     var assignmentLabel:UILabel!
+    var isChecked:Bool = false
     
     override func awakeFromNib() {
         
         
-        self.backgroundColor = UIColor.green
-        self.layer.cornerRadius = 15
+//        self.backgroundColor = UIColor.green
+        
         
         
         
@@ -44,13 +45,24 @@ class AssignmentView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.layer.cornerRadius = 15
+        self.layer.backgroundColor = UIColor.white.cgColor
+        self.layer.borderColor = UIColor.gray.cgColor
+        //        cell.layer.borderWidth = 0.0
+        //        cell.layer.cornerRadius = 5
+        self.layer.masksToBounds = false
+        //        cell.layer.shadowRadius = 1.0
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+        self.layer.shadowOpacity = 0.70
+        self.layer.shadowRadius = 3.0
         
         checkButton = UIButton()
-        checkButton.frame = CGRect(x: 10, y: 5, width: 45, height: 45)
+        checkButton.frame = CGRect(x: 25, y: 5, width: 25, height: 25)
+        checkButton.center.y = self.frame.height / 2
 //        perLabel1.center.y
 //        checkButton.setTitle("1", for: .normal)
-        checkButton.layer.cornerRadius = 22.5
+        checkButton.layer.cornerRadius = 12.5
         checkButton.layer.borderColor = UIColor.lightBlue().cgColor
         checkButton.layer.borderWidth = 3
         checkButton.layer.backgroundColor = UIColor.white.cgColor
@@ -60,11 +72,14 @@ class AssignmentView: UIView {
         //        perLabel.center.y = 50
         //        self.addSubview()
         
+        checkButton.addTarget(self, action: #selector(checked), for: .touchUpInside)
+        
         self.addSubview(checkButton)
         
         assignmentLabel = UILabel()
         assignmentLabel.frame = CGRect(x: self.checkButton.frame.origin.x + 45 +  10, y: 10, width: self.frame.width - 30, height: 40)
         assignmentLabel.text = "THIS IS TEXT"
+        assignmentLabel.center.y = self.frame.height / 2
         self.addSubview(assignmentLabel)
         
         
@@ -74,6 +89,20 @@ class AssignmentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    @objc func checked() {
+        if isChecked  {
+            isChecked = false
+            checkButton.backgroundColor = UIColor.white
+            assignmentLabel.textColor = UIColor.black
+            assignmentLabel.attributedText =  NSAttributedString(string:  assignmentLabel.text! , attributes: nil)
+            
+        }
+        else {
+            isChecked = true
+            checkButton.backgroundColor = UIColor.lightBlue()
+            assignmentLabel.textColor = UIColor.lightGray
+            assignmentLabel.attributedText =  NSAttributedString(string:  assignmentLabel.text! , attributes: [NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue])
+        }
+    }
 
 }
