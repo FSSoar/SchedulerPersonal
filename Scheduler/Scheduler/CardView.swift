@@ -23,7 +23,10 @@ class CardView: UIView {
     var timeLabel:UILabel!
     
     var actionButton:UIButton!
+    var addButton:UIButton!
     
+    
+    var scroll:UIScrollView!
     override func awakeFromNib() {
         self.backgroundColor = UIColor.black
     }
@@ -81,14 +84,35 @@ class CardView: UIView {
         
         self.addSubview(actionButton)
         
+        addButton = UIButton()
+        addButton.setTitle("+", for: .normal)
+        addButton.frame = CGRect(x: self.frame.width - 50, y: 135, width: 35, height: 35)
+        addButton.backgroundColor = UIColor.lightBlue()
+        addButton.layer.cornerRadius = 17.5
+//        addButton.layer.backgroundColor = UIColor.white.cgColor
+        addButton.layer.borderColor = UIColor.gray.cgColor
+        //        cell.layer.borderWidth = 0.0
+        //        cell.layer.cornerRadius = 5
+        addButton.layer.masksToBounds = false
+        //        cell.layer.shadowRadius = 1.0
+        addButton.layer.shadowColor = UIColor.lightGray.cgColor
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)//CGSize(1.0, 1.0)
+        addButton.layer.shadowOpacity = 0.70
+        addButton.layer.shadowRadius = 3.0
         
         
+//        actionButton.setTitleColor(UIColor.lightBlue(), for: .normal)
+        self.addSubview(addButton)
         
-
+        scroll = UIScrollView()
+        scroll.frame = CGRect(x: 0, y: 160, width: self.frame.width, height: self.frame.height - 180)
+        scroll.contentSize = CGSize(width: self.frame.width, height: self.frame.height - 180)
+//        scroll.backgroundColor = UIColor.green
+        self.addSubview(scroll)
 //        self.addSubview(assignmentView)
         
-        generateAssignmentView()
-        
+//        generateAssignmentView()
+        closeExpandedView()
         
     }
     
@@ -122,13 +146,47 @@ class CardView: UIView {
     
     
     
-    
-    func generateAssignmentView() {
-        let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 160, width: self.frame.width - 10, height: 55))
+    var assignments:[AssignmentView] = []
+    func generateAssignmentView(offsetIndex:Int, value:String) {
+        let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 60 * offsetIndex + 5, width: Int(self.frame.width - 10), height: 55))
+        scroll.contentSize = CGSize(width: self.frame.width, height:  60 * CGFloat(offsetIndex) + 180)
 //        assignmentView.backgroundColor = UIColor.green
 //        assignmentView.frame =
-        self.addSubview(assignmentView)
+        assignmentView.assignmentLabel.text = value
+        assignments.append(assignmentView)
+        self.scroll.addSubview(assignmentView)
      
+        
+        
+    }
+    
+    
+    func initExpandedView (events:[String]) {
+        scroll.isHidden = false
+        scroll.frame = CGRect(x: 0, y: 180, width: self.frame.width, height: self.frame.height - 190)
+        for i in 0 ..< assignments.count {
+            assignments[i].removeFromSuperview()
+        }
+        assignments = []
+        
+        addButton.isHidden = false
+        print("Event Count \(events.count)")
+        for i in 0 ..< events.count {
+            if events[i] != "" {
+                generateAssignmentView(offsetIndex: i, value: events[i])
+            }
+            
+        }
+        
+    }
+    
+    func closeExpandedView() {
+        scroll.isHidden = true
+         addButton.isHidden = true
+        for i in 0 ..< assignments.count {
+            assignments[i].removeFromSuperview()
+        }
+        assignments = []
     }
     
 }

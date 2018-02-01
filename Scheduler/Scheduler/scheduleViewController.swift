@@ -60,6 +60,8 @@ class scheduleViewController: UIViewController {
             card.timeLabel.text = times[i]
             card.actionButton.addTarget(self, action: #selector(normalView), for: .touchUpInside)
             card.actionButton.isHidden = true
+            card.addButton.tag = i
+            card.addButton.addTarget(self, action: #selector(showGetAssignment(sender:)), for: .touchUpInside)
             cards.append(card)
             
             
@@ -142,6 +144,9 @@ class scheduleViewController: UIViewController {
                 }
             }
             self.cards[sender.tag].frame = CGRect(x: 10 , y: 95, width: (Int)(self.view.frame.width - 20), height: Int(self.view.frame.height - 105))
+            let arr = self.getAssignments(period: sender.tag)
+            self.cards[sender.tag].initExpandedView(events: arr)
+            
             
         }, completion: nil)
         
@@ -161,6 +166,8 @@ class scheduleViewController: UIViewController {
                 self.transitionButtons[i].isHidden = false
                 self.cards[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
                 self.transitionButtons[i].frame = CGRect(x: 10 , y: (Int)(140 * i + 95), width: (Int)(self.view.frame.width - 20), height: 125)
+//                showGetAssignment()
+                self.cards[i].closeExpandedView()
             }
         }, completion: nil)
     }
@@ -626,8 +633,8 @@ class scheduleViewController: UIViewController {
         
         
     }
-    func showGetAssignment(period:Int) {
-        
+    @objc func showGetAssignment(sender:UIButton) {
+        let period = sender.tag
         let alertController = UIAlertController(title: "New Assignment", message: "", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: {
@@ -674,6 +681,7 @@ class scheduleViewController: UIViewController {
         {
             arr.append(assignment)
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+            cards[period].initExpandedView(events: arr)
             
         }
         else
@@ -681,9 +689,11 @@ class scheduleViewController: UIViewController {
             var arr = [String]()
             arr.append(assignment)
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
-            
+            cards[period].initExpandedView(events: arr)
             
         }
+        
+        
         
         
     }
@@ -717,6 +727,7 @@ class scheduleViewController: UIViewController {
     }
 
     
+
     
     
 }
