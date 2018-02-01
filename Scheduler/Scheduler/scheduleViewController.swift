@@ -112,9 +112,12 @@ class scheduleViewController: UIViewController {
         //print(checkSpecialDate())
         
         
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
-        //showGetAssignment()
+        //showGetAssignment(period: 1)
+        
     }
     
     
@@ -623,7 +626,7 @@ class scheduleViewController: UIViewController {
         
         
     }
-    func showGetAssignment() {
+    func showGetAssignment(period:Int) {
         
         let alertController = UIAlertController(title: "New Assignment", message: "", preferredStyle: .alert)
         
@@ -634,8 +637,17 @@ class scheduleViewController: UIViewController {
             
             if assignmentField.text != ""{
                 print(assignmentField.text!)
-                //TODO: Save user data in persistent storage - a tutorial for another time
-            } else {
+                //Save user data
+                
+                self.saveAssignment(period: period, assignment: assignmentField.text!)
+                
+                
+                
+                
+                
+            }
+            
+            else {
                 let errorAlert = UIAlertController(title: "Error", message: "Please input an assignment", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
                     alert -> Void in
@@ -644,6 +656,8 @@ class scheduleViewController: UIViewController {
                 self.present(errorAlert, animated: true, completion: nil)
             }
         }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         
         alertController.addTextField(configurationHandler: { (textField) -> Void in
             textField.placeholder = "Homework"
@@ -654,6 +668,54 @@ class scheduleViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    func saveAssignment(period:Int, assignment:String)
+    {
+        if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
+        {
+            arr.append(assignment)
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+            
+        }
+        else
+        {
+            var arr = [String]()
+            arr.append(assignment)
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+            
+            
+        }
+        
+        
+    }
+    func getAssignments(period:Int) -> [String]
+    {
+        if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
+        {
+            return arr
+            
+        }
+        
+        return [""]
+        
+    }
+    func removeAssignment(period:Int, assignment:String)
+    {
+        if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
+        {
+            for i in 0 ..< arr.count {
+                if assignment == arr[i]
+                {
+                    arr.remove(at: i)
+                    break
+                }
+            }
+          
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+            
+        }
+        
+    }
+
     
     
     
