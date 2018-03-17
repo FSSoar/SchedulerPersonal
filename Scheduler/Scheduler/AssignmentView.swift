@@ -10,6 +10,9 @@ import UIKit
 
 class AssignmentView: UIView {
 
+    
+    
+    var defaults = UserDefaults.standard
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -23,7 +26,7 @@ class AssignmentView: UIView {
     var checkButton:UIButton!
     var assignmentLabel:UILabel!
     var isChecked:Bool = false
-    
+    var period:Int = -1
     override func awakeFromNib() {
         
         
@@ -95,14 +98,68 @@ class AssignmentView: UIView {
             checkButton.backgroundColor = UIColor.white
             assignmentLabel.textColor = UIColor.black
             assignmentLabel.attributedText =  NSAttributedString(string:  assignmentLabel.text! , attributes: nil)
-            
+            saveAssignment(period: self.period, assignment: self.assignmentLabel.text!)
         }
         else {
             isChecked = true
             checkButton.backgroundColor = UIColor.lightBlue()
             assignmentLabel.textColor = UIColor.lightGray
             assignmentLabel.attributedText =  NSAttributedString(string:  assignmentLabel.text! , attributes: [NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue])
+            removeAssignment(period: self.period, assignment: assignmentLabel.text!)
         }
     }
+    
+    
+    func removeAssignment(period:Int, assignment:String)
+    {
+        if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
+        {
+            for i in 0 ..< arr.count {
+                if assignment == arr[i]
+                {
+                    arr.remove(at: i)
+                    break
+                }
+            }
+            
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+            
+        }
+        
+    }
+
+    
+    
+    
+    func saveAssignment(period:Int, assignment:String)
+    {
+        if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
+        {
+            arr.append(assignment)
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+//            cards[indexOfCard].initExpandedView(events: arr)
+            
+            
+        }
+        else
+        {
+            var arr = [String]()
+            arr.append(assignment)
+            defaults.set(arr, forKey: "period" + String(period) + "Assignments")
+//            cards[period].initExpandedView(events: arr)
+            
+        }
+        
+        
+        
+        
+    }
+
+    
+    
+    
+    
+    
+    
 
 }

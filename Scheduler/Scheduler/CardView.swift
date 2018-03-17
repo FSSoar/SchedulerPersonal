@@ -148,11 +148,15 @@ class CardView: UIView {
     
     var assignments:[AssignmentView] = []
     func generateAssignmentView(offsetIndex:Int, value:String) {
+        
+        
+        
         let assignmentView = AssignmentView(frame: CGRect(x: 5, y: 60 * offsetIndex + 5, width: Int(self.frame.width - 10), height: 55))
         scroll.contentSize = CGSize(width: self.frame.width, height:  60 * CGFloat(offsetIndex) + 180)
 //        assignmentView.backgroundColor = UIColor.green
 //        assignmentView.frame =
         assignmentView.assignmentLabel.text = value
+        assignmentView.period = Int(perLabel.currentTitle!)!
         assignments.append(assignmentView)
         self.scroll.addSubview(assignmentView)
      

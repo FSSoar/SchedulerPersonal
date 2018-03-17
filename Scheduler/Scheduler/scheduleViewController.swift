@@ -688,13 +688,14 @@ class scheduleViewController: UIViewController {
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
             cards[indexOfCard].initExpandedView(events: arr)
             
+            
         }
         else
         {
             var arr = [String]()
             arr.append(assignment)
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
-            cards[indexOfCard].initExpandedView(events: arr)
+            cards[period].initExpandedView(events: arr)
             
         }
         
