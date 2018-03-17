@@ -213,16 +213,16 @@ class scheduleViewController: UIViewController {
                 //print("a")
                 
                 
-                if let url = URL(string: "https://sites.google.com/site/falconstepstest/about-us/specialDates.json?attredirects=0&d=1") {
-                    do {
-                        let contents = try String(contentsOf: url)
-                        print(contents)
-                    } catch {
-                        // contents could not be loaded
-                    }
-                } else {
-                    // the URL was bad!
-                }
+//                if let url = URL(string: "https://sites.google.com/site/falconstepstest/about-us/specialDates.json?attredirects=0&d=1") {
+//                    do {
+//                        let contents = try String(contentsOf: url)
+//                        print(contents)
+//                    } catch {
+//                        // contents could not be loaded
+//                    }
+//                } else {
+//                    // the URL was bad!
+//                }
                 
                 let data = try Data(contentsOf: URL(string: "https://drive.google.com/file/d/1viN-R2EHXgjnbIj2JCrQc1h2HJHmnoTi/view?usp=sharing")! , options: .mappedIfSafe)  //Where it says URL can we actually insert a webURL??
                 print("data \(data)")
