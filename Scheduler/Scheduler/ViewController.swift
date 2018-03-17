@@ -345,6 +345,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         for i in 0 ..< tempDataArray.count
         {
             let dataString = tempDataArray[i][0] + "&&" + tempDataArray[i][1]
+//            print("key is \(i)")
             defaults.set(dataString, forKey: "period" + String(i))
         }
         

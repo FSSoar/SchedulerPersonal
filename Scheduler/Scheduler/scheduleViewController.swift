@@ -144,7 +144,8 @@ class scheduleViewController: UIViewController {
                 }
             }
             self.cards[sender.tag].frame = CGRect(x: 10 , y: 95, width: (Int)(self.view.frame.width - 20), height: Int(self.view.frame.height - 105))
-            let arr = self.getAssignments(period: sender.tag)
+            
+            let arr = self.getAssignments(period: Int(self.cards[sender.tag].perLabel.currentTitle!)! )
             self.cards[sender.tag].initExpandedView(events: arr)
             
             
@@ -383,6 +384,7 @@ class scheduleViewController: UIViewController {
             }
             cards[i].setPeriodNumber(perNum: perNum, color: colors[matrix[day][i].period]) //.perLabel.setTitle("\(matrix[day][i].period)", for: .normal)
             cards[i].periodName.text = matrix[day][i].className
+            
             
             
         }
@@ -634,7 +636,10 @@ class scheduleViewController: UIViewController {
         
     }
     @objc func showGetAssignment(sender:UIButton) {
-        let period = sender.tag
+        let periodButton = sender.tag
+        let periodStr = cards[sender.tag].perLabel.currentTitle
+        print("Period String \(periodStr)")
+        let period = Int(periodStr!)
         let alertController = UIAlertController(title: "New Assignment", message: "", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: {
@@ -646,7 +651,7 @@ class scheduleViewController: UIViewController {
                 print(assignmentField.text!)
                 //Save user data
                 
-                self.saveAssignment(period: period, assignment: assignmentField.text!)
+                self.saveAssignment(period: period!, assignment: assignmentField.text!, indexOfCard: sender.tag)
                 
                 
                 
@@ -675,13 +680,13 @@ class scheduleViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    func saveAssignment(period:Int, assignment:String)
+    func saveAssignment(period:Int, assignment:String, indexOfCard:Int)
     {
         if var arr:[String] = defaults.value(forKey: "period" + String(period) + "Assignments") as? [String]
         {
             arr.append(assignment)
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
-            cards[period].initExpandedView(events: arr)
+            cards[indexOfCard].initExpandedView(events: arr)
             
         }
         else
@@ -689,7 +694,7 @@ class scheduleViewController: UIViewController {
             var arr = [String]()
             arr.append(assignment)
             defaults.set(arr, forKey: "period" + String(period) + "Assignments")
-            cards[period].initExpandedView(events: arr)
+            cards[indexOfCard].initExpandedView(events: arr)
             
         }
         
