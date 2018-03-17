@@ -322,6 +322,43 @@ class scheduleViewController: UIViewController {
         return isSpecial
         
     }
+    func checkSpecialDateReturn(date:Date) -> SpecialDate
+    {
+        //returns the special day associated with a give date
+        //ONLY CALLED WHEN YOU KNOW A DAY IS SPECIAL!
+        var isSpecial = false
+        var foundSpecial = SpecialDate(date: date, reason: "", type: "")
+        for temp:SpecialDate in specialDates
+        {
+            if temp.date == date
+            {
+                isSpecial = true
+                foundSpecial = temp
+                break
+            }
+            
+        }
+        return foundSpecial
+        
+    }
+    func checkSpecialDateTime(date:Date) -> [String]
+    {
+    
+        var isSpecial = false
+        var foundSpecial = SpecialDate(date: date, reason: "", type: "")
+        for temp:SpecialDate in specialDates
+        {
+            if temp.date == date
+            {
+                isSpecial = true
+                foundSpecial = temp
+                return foundSpecial.returnTimeArray(keyCode: foundSpecial.type)
+            }
+            
+        }
+        return ["7:30 - 8:30", "8:35 - 9:35", "9:40 - 10:40", "10:45 - 12:40", "12:45 - 1:50"]
+        
+    }
     
     
     /*
@@ -468,9 +505,7 @@ class scheduleViewController: UIViewController {
     
     
     func validateDate(anchorDate:AnchorDate, currDate:Date) -> Int {
-        
-        
-        
+
         
         var validationProgress:Int = 0
         var itterator:Int = 0
@@ -524,15 +559,41 @@ class scheduleViewController: UIViewController {
             
         }
         else if checkSpecialDate(date: dateForComp)  {
-            dayLabel.text = "Holiday"
-            for i in 0 ..< cards.count {
-                cards[i].isHidden = true
+            print("got here 1")
+            let currentSpecial = checkSpecialDateReturn(date: dateForComp)
+            if(currentSpecial.type == "N")
+            {
+                dayLabel.text = "No School"
+                for i in 0 ..< cards.count {
+                    cards[i].isHidden = true
+                }
             }
+            else if(currentSpecial.type == "E")
+            {
+                print("got here early release")
+                let times = checkSpecialDateTime(date: currentSpecial.date)
+                for i in 0 ..< cards.count {
+                    cards[i].isHidden = false
+                    cards[i].timeLabel.text = times[i]
+                }
+            }
+            else if(currentSpecial.type == "AD")
+            {
+                print("got here early dismissal")
+                let times = checkSpecialDateTime(date: currentSpecial.date)
+                for i in 0 ..< cards.count {
+                    cards[i].isHidden = false
+                    cards[i].timeLabel.text = times[i]
+                }
+            }
+            
         }
         else {
             
             for i in 0 ..< cards.count {
+                let times = ["7:30 - 8:30", "8:35 - 9:35", "9:40 - 10:40", "10:45 - 12:40", "12:45 - 1:50"]
                 cards[i].isHidden = false
+                cards[i].timeLabel.text = times[i]
             }
             
             
