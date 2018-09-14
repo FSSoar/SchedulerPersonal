@@ -17,5 +17,11 @@ into the appropriate periods
 
 ![](scheduleAppSetup.gif)
 
+#### Additional Features
+
+Our scheduling app offers additional benefits over the existing app with features such as class specific homework.
+
+![](additionalFeatures.gif)
+
 
 
