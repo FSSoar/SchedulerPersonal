@@ -27,5 +27,6 @@ Our scheduling app offers additional benefits over the existing app with feature
 
 Evan Bishop, Hopkinton High School Principal
 > [Powerschool] was not user friendly and confusing for most students
+
 > [The new app] is much easier to access, very user friendly and will no doubt improve the way students at HHS view their schedules on their phones
 
