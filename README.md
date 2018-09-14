@@ -12,5 +12,8 @@ Our scheduling app is intuitive and provides greater day to day utility.
 
 #### Setup
 
+Setup of our app is quick and must be done only once a semester. Users simply input their classes into the appropriate periods
+![](scheduleAppSetup.gif)
+
 
 
