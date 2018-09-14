@@ -6,4 +6,11 @@ Our school uses PowerSchool, a grade management and class scheduling system. How
 
 ## Our Solution
 
+Our scheduling app is intuitive and provides greater day to day utility.
+#### Overview
 ![](currentScheduleApp.gif)
+
+#### Setup
+
+
+
